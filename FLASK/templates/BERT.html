@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>BERT Earnings QA</title>
+  <meta name="description" content="BERT Earnings QA">
+  <meta name="author" content="Galvanize DSI">
+  <script src="{{ url_for('static', filename='brython.js')}}"></script>
+  <script src="{{ url_for('static', filename='brython_stdlib.js')}}"></script>
+    <link rel="stylesheet" type="text/css" 
+            href="{{ url_for('static', filename='css/bootstrap.css') }}">
+</head>
+
+<body onload="brython()">
+    <script type="text/python" src="{{ url_for('static', filename='brapp.py') }}"></script>
+    <h1>BERT Earnings QA</h1>
+    <p>BERT will read Earning Call Transcripts for you and can answer your questions!</p>
+    <p>Please select a company, year, and quarter for BERT to read</p>
+
+    <div>
+        <!-- These have id's so that later we can pull out data using js. -->
+        <span>Ticker:</span> <input id="Ticker"></input>
+        <span>Year:</span> <input id="Year"></input>
+        <span>Quarter:</span> <input id="Quarter"></input>
+
+
+        <div>
+            <button type="button" id="solve">Find Transcripts!</button>
+        </div>
+
+
+    </div>
+    
+    <div hidden id = "hidden_layer">
+        <p>But why read through an entire Earnings Call yourself? Instead, ask BERT a question. </p>
+
+        <span>Question:</span><input id="question"></input>
+        <div>
+            <button type="button" id="ask">Ask!</button>
+        </div>
+
+         <div>
+            <p> BERT says: <span id="solution"></span> </p>
+    </div>
+
+
+
+    <div>
+        <!-- The span has an id so that later we can fill in the solution
+             using js. -->
+        <p> Text: <span id="text"></span> </p>
+    </div>
+
+
+
+
+
+
+</body>
+</html>
