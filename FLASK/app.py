@@ -17,17 +17,21 @@ def solve():
     answer = find_answer(Ticker, Year, Quarter)
     return jsonify({'answer': answer})
 
-@app.route('/ask', methods=['POST'])
-def ask():
-    user_data = request.json
-    ask = user_data['Question']
-    EC = user_data['EarningsCall']
-    answer = question_answer(EC,ask)
-    return jsonify({'answer': answer})
-
 def find_answer(Ticker, Year, Quarter):
     answer_text = call_pull(Ticker, Year, Quarter)
     return answer_text
+
+
+@app.route('/ask', methods=['POST'])
+def ask():
+    print('help me')
+    user_data = request.json
+    Ticker, Year, Quarter, question = user_data['Ticker'], user_data['Year'], user_data['Quarter'], user_data['question']
+    answer = question_answer(Ticker, Year, Quarter,question)
+    print(Ticker, Year, Quarter, question)
+    return jsonify({'answer': answer})
+
+
 
 
 if __name__ == '__main__':
