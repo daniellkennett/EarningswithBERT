@@ -1,10 +1,12 @@
+https://docs.google.com/presentation/d/1zxWDLn4hkM7SKlwN6VfoqOe1JCGPorKlh5NqvLWkkmM/edit#slide=id.gc6f80d1ff_0_0
+
+
 # Earnings with Bert
 
 1. What is Bert
 2. Finetuning dataset
-3. In practice - data
-4. Problems with BERT
-5. Final
+3. Problems with BERT
+
 
 
 
@@ -30,16 +32,16 @@ To train, Bert is given sentences with 15% of words replaced with the [Mask] tag
 The model is also trained by providing two sentences of a time. 50% of the time the sentences are sequential. 50% they are random. The model needs to predict the randomness of the secon sentence. This technique holds the largest weight for QA because we will fine-tune Bert by setting the question as sentence 1. It will assign scores to every sentence 2.
 
 
-### Finetuning with SQuAD
+### 2. Finetuning with SQuAD
 the Stanford Question Answering Dataset is a collection of 100,000 question and answer pairs. Bert takes in the question, a contextual passage and predicts the answer. Bert uses the the logliklihoods to determine start and end postitions of answers.
 
 
 Softmax logloss to measure performance-
-$ log(softmax(CW^T)) $
+
+$$ log(softmax(CW^T)) $$
 
 
-### In Practice
-INSERT SITE HERE
+### 3. In Practice
 
 Once trained on the Stanford set, the model can take in any set of question and paragraph and derive 
 
@@ -48,10 +50,7 @@ Once trained on the Stanford set, the model can take in any set of question and 
 
 By design of how BERT was trained, the model can only take up to 512 parameters. To avoid this, I created a system to chop Earning Reports into small sections. These smaller sections will incorporate 25% of the section before to maintain conversational context. Otherwise BERT would lose that and the model would be missing valuable information. 
 
-
-### In Practice
-
-Final model
+Additionally, BERT always finds an answer. Even if it's wrong. Therefore the model has a significant weakness. Preferably the model would return "Could not find answer" when it is not confident. This can be achieved by creating a threshold for log-likelihood.
 
 
 
