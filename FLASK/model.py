@@ -2,19 +2,24 @@ import json
 import os
 import re
 import string
+from data_gather import *
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 import numpy as np
-import tensorflow as tf
 import tensorflow_hub as hub
+from tokenizers import BertWordPieceTokenizer
+import tensorflow as tf
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 from tensorflow import keras
 from tensorflow.keras import layers
-from tokenizers import BertWordPieceTokenizer
-from data_gather import *
 
 max_seq_length = 384
 bert_layer = hub.KerasLayer("https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/2", trainable=True)
 vocab_file = bert_layer.resolved_object.vocab_file.asset_path.numpy().decode("utf-8")
 tokenizer = BertWordPieceTokenizer(vocab=vocab_file, lowercase=True)
-# model = keras.models.load_model('../model')
+model = keras.models.load_model('../model')
 
 
 
@@ -63,40 +68,40 @@ def create_inputs(squad_examples):
 
 
 def question_answer(ticker, year, quarter, question):
-  # transcript = get_split(ticker, year, quarter)
-  # answers = []
-  # scores = []
+   transcript = get_split(ticker, year, quarter)
+   answers = []
+   scores = []
 
-  # for dialogue in transcript:
+   for dialogue in transcript:
 
-  #   test_samples = preprocess(dialogue, question)[:5]
-  #   x, _ = create_inputs(test_samples)
-  #   pred_start, pred_end = model.predict(x)
-  #   for idx, (start, end) in enumerate(zip(pred_start, pred_end)):
-  #     test_sample = test_samples[idx]
-  #     offsets = preprocess(dialogue, question)[-1]
-  #     ### Use largest start to determine right answer ###
-  #     score = max(start)
-  #     start = np.argmax(start)
-  #     end = np.argmax(end)
-  #     pred_ans = None
-  #     if start >= len(offsets):
-  #         continue
-  #     pred_char_start = offsets[start][0]
-  #     if end < len(offsets):
-  #         pred_ans = dialogue[pred_char_start:offsets[end][1]]
-  #     else:
-  #         pred_ans = dialogue[pred_char_start:]
-  #     answers.append(pred_ans)
-  #     scores.append(score)
+     test_samples = preprocess(dialogue, question)[:5]
+     x, _ = create_inputs(test_samples)
+     pred_start, pred_end = model.predict(x)
+     for idx, (start, end) in enumerate(zip(pred_start, pred_end)):
+       test_sample = test_samples[idx]
+       offsets = preprocess(dialogue, question)[-1]
+       ### Use largest start to determine right answer ###
+       score = max(start)
+       start = np.argmax(start)
+       end = np.argmax(end)
+       pred_ans = None
+       if start >= len(offsets):
+           continue
+       pred_char_start = offsets[start][0]
+       if end < len(offsets):
+           pred_ans = dialogue[pred_char_start:offsets[end][1]]
+       else:
+           pred_ans = dialogue[pred_char_start:]
+       answers.append(pred_ans)
+       scores.append(score)
 
-  #     # print("Q: " + question)
-  #     # print("A: " + pred_ans)
+       # print("Q: " + question)
+       # print("A: " + pred_ans)
 
 
 
-  # return answers[np.argmax(scores)]
-  return "Galvanize is awesome"
+   return answers[np.argmax(scores)]
+  # return "Galvanize is awesome"
 
 
 if __name__ == "__main__":

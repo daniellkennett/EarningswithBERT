@@ -1,1 +1,0 @@
-from flask.static.tes import *
