@@ -1,0 +1,18 @@
+﻿BERT – BiDirectional Encoder Representation from Transformers 
+Transformer Neural Network for language translation.
+LSTM was used until transformers
+
+Bidirectional. Right to left, left to right. Encoder(input) What is English/Grammar and what is context. Decoder(output) how do English words 
+1. Pretrain BERT to understand what is language. 
+2. Fine tuning where the model figures out to solve problems.
+
+Learns from the Masked Language Model(MLM) and Next Sentence Prediction(NSP). MLM takes in sentences with masked words, fill in the blanks.  NSP determines whether sentence B follows sentence A.
+
+Replace last set of output layers for new ones and it can be used for Q&A. Use supervised learning Q&A dataset, won’t take long. Training time is fast! SquAD-Stanford Question and Answer Dataset
+
+
+
+Flask app-
+fill in to look for a company ticker
+
+Use BERT to analyze text to analyze company Transcripts to answer questions. Similar to summarizing text. 
