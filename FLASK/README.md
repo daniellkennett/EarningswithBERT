@@ -1,4 +1,5 @@
-Step 7: Bind Send and Display Recieved Data
+Earnings with BERT - Flask
 ===========================================
 
-This introduces `$(document).ready`, binds sending the coefficient data to a button, and displays the recieved data to the user.
+This app has the ability to access company Earnings Call transcripts for the BERT model. 
+Once you enter the company information, you can then ask BERT a question and it will derive a response
