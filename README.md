@@ -1,3 +1,7 @@
+<img src="https://github.com/daniellkennett/EarningswithBERT/blob/main/images/BERT.png?raw=true">
+
+
+
 Slides: https://docs.google.com/presentation/d/1zxWDLn4hkM7SKlwN6VfoqOe1JCGPorKlh5NqvLWkkmM/edit#slide=id.gc6f80d1ff_0_0
 
 Video: https://drive.google.com/file/d/1bBkZtw9q-2MchBz0p3vaDMJ0v4cX2Wke/view?usp=sharing
